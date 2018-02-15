@@ -48,6 +48,7 @@ class VoteShow extends Component {
 
         let items = this.props.requests.map( ( request, index) => {
             return ({
+                color:'blue',
                 header: request.description,
                 description: request.name,
                 extra: (

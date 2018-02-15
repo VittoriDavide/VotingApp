@@ -36,6 +36,7 @@ class CampaignShow extends Component {
 
         const items = [
             {
+                color: 'red',
                 header: manager,
                 meta: 'Address of Manager',
                 description:
@@ -43,12 +44,16 @@ class CampaignShow extends Component {
                 style: { overflowWrap: 'break-word' }
             },
             {
+                                color: 'red',
+
                 header: description,
                 meta: question,
                 description:
-                    'A request tries to withdraw money from the contract. Requests must be approved by approvers'
+                    'The motive of the poll'
             },
             {
+                                color: 'red',
+
                 header: approversCount,
                 meta: 'Number of Approvers',
                 description:
@@ -62,7 +67,7 @@ class CampaignShow extends Component {
     render() {
         return (
             <Layout>
-              <h3>Campaign Show: {this.props.question}</h3>
+              <h3>Poll: {this.props.question}</h3>
               <Grid>
                 <Grid.Row>
                   <Grid.Column width={10}>{this.renderCards()}</Grid.Column>
@@ -76,7 +81,7 @@ class CampaignShow extends Component {
                   <Grid.Column>
                     <Link route={`/campaigns/${this.props.address}/requests`}>
                       <a>
-                        <Button primary>View Requests</Button>
+                        <Button primary>View and Create Choices</Button>
                       </a>
                     </Link>
                   </Grid.Column>

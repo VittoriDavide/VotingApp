@@ -68,6 +68,9 @@ contract Campaign {
     }
 
 
+
+
+
     function getSummary() public view returns (
        string, string, uint, uint, uint, address
       ) {
