@@ -15,10 +15,11 @@ class CampaignIndex extends Component {
             return {
                 address: address,
                 description: summary[0],
-                balance: summary[1],
-                requestsCount: summary[2],
-                approversCount: summary[3],
-                manager: summary[4]
+                question: summary[1],
+                balance: summary[2],
+                requestsCount: summary[3],
+                approversCount: summary[4],
+                manager: summary[5]
             };
         }));
 
@@ -27,15 +28,26 @@ class CampaignIndex extends Component {
     }
 
     renderCampaigns() {
-        const items = this.props.results.map(({description, address}) => {
+        const items = this.props.results.map(({description, address, question}) => {
             return {
-                header: description,
+                header: description + ": " + question,
                 description: (
-                    <Link route={`/campaigns/${address}`}>
-                        <a>View Campaign</a>
-                    </Link>
+                        <React.Fragment>
+                        <Link route={`/campaigns/${address}`}>
+
+                            <a>View poll</a>
+                        </Link>
+                     <Link route={`/${address}`}>
+                            <Button
+                                floated="right"
+                                content="Vote"
+                                icon="hand pointer"
+                                positive
+                            />
+                        </Link>
+                        </React.Fragment>
                 ),
-                fluid: true
+                fluid: true,
             };
         });
 
@@ -47,14 +59,14 @@ class CampaignIndex extends Component {
         return (
             <Layout>
                 <div>
-                    <h3>Open Campaigns</h3>
+                    <h3>Open Polls</h3>
 
                     <Link route="/campaigns/new">
                         <a>
                             <Button
                                 floated="right"
-                                content="Create Campaign"
-                                icon="add circle"
+                                content="Create Poll"
+                                icon="hand spock"
                                 primary
                             />
                         </a>

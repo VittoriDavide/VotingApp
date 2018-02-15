@@ -34,25 +34,10 @@ class RequestRow extends Component {
       >
         <Cell>{id}</Cell>
         <Cell>{request.description}</Cell>
-        <Cell>{web3.utils.fromWei(request.value, 'ether')}</Cell>
-        <Cell>{request.recipient}</Cell>
         <Cell>
           {request.approvalCount}/{approversCount}
         </Cell>
-        <Cell>
-          {request.complete ? null : (
-            <Button color="green" basic onClick={this.onApprove}>
-              Approve
-            </Button>
-          )}
-        </Cell>
-        <Cell>
-          {request.complete ? null : (
-            <Button color="teal" basic onClick={this.onFinalize}>
-              Disapprove
-            </Button>
-          )}
-        </Cell>
+
       </Row>
     );
   }

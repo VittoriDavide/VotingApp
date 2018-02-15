@@ -3,8 +3,8 @@ pragma solidity ^0.4.17;
 contract CampaignFactory {
     address[] public deployedCampaigns;
 
-    function createCampaign(string descCampaign) public {
-        address newCampaign = new Campaign(descCampaign, msg.sender);
+    function createCampaign(string descCampaign, string question) public {
+        address newCampaign = new Campaign(descCampaign, question, msg.sender);
         deployedCampaigns.push(newCampaign);
     }
 
@@ -15,6 +15,7 @@ contract CampaignFactory {
 
 contract Campaign {
     struct Request {
+        string name;
         string description;
         uint value;
         uint approvalCount;
@@ -45,11 +46,12 @@ contract Campaign {
         approversCount++;
     }
 
-    function createRequest(string description, uint value) public restricted {
+    function createRequest(string description, string name) public restricted {
         Request memory newRequest = Request({
+            name: name,
            description: description,
-           value: value,
-           approvalCount: 0,
+           value: requests.length,
+           approvalCount: 0
         });
         requests.push(newRequest);
     }
@@ -59,21 +61,12 @@ contract Campaign {
 
         require(approvers[msg.sender]);
         require(!request.approvals[msg.sender]);
+        approvers[msg.sender] = false;
 
         request.approvals[msg.sender] = true;
         request.approvalCount++;
     }
 
-
-    function finalizeRequest(uint index) public restricted {
-        Request storage request = requests[index];
-
-        require(request.approvalCount > (approversCount / 2));
-        require(!request.complete);
-
-        request.recipient.transfer(request.value);
-        request.complete = true;
-    }
 
     function getSummary() public view returns (
        string, string, uint, uint, uint, address
